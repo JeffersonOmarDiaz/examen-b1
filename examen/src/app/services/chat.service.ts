@@ -67,6 +67,9 @@ export class ChatService {
     });
   }
    
+  enviarEmail(){
+    return this.elEmail;
+  }
   getChatMessages() {
     let users = [];
     return this.getUsers().pipe(

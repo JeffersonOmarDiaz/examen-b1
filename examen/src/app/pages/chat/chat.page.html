@@ -3,7 +3,7 @@
     <ion-title>Chat   </ion-title>
     <ion-buttons slot="end">
       <ion-button>
-        <ion-icon name="camera-outline"></ion-icon>
+        <ion-icon name="camera-outline" id="file-upload" (change)="newImageUpload($event)"></ion-icon>
       </ion-button>
       <ion-button routerLink="/localization">
         <ion-icon name="location-outline" slot="icon-only"></ion-icon>

@@ -3,6 +3,7 @@ import { IonContent } from '@ionic/angular';
 import { Observable } from 'rxjs';
 import { ChatService } from '../../services/chat.service';
 import { Router } from '@angular/router';
+import { FirestorageService } from 'src/app/services/firestorage.service';
 
 @Component({
   selector: 'app-chat',
@@ -14,7 +15,10 @@ export class ChatPage implements OnInit {
 
   messages: Observable<any[]>;
   newMsg = '';
-  constructor(private chatService: ChatService, private router: Router) { }
+  newFile ='';
+  constructor(private chatService: ChatService, private router: Router,
+    public firestorageService: FirestorageService,
+    ) { }
 
   ngOnInit() {
     this.messages = this.chatService.getChatMessages();
@@ -33,4 +37,19 @@ export class ChatPage implements OnInit {
     });
   }
 
+
+  async newImageUpload(event: any) {
+    console.log('el evento es: ',event);
+    if (event.target.files && event.target.files[0] && event.isTrusted === true) {
+      console.log(this.chatService.enviarEmail());
+      //const res = await this.firestorageService.uploadImagen(this.newFile, this.pathMascota, name);
+      const reader = new FileReader();
+      reader.onload = ((image) => {
+        //this.newMascota.foto = image.target.result as string;
+      });
+      reader.readAsDataURL(event.target.files[0]);
+    }
+    console.log('Fin de la función nuevaImagenUpload');
+  
+  }
 }
