@@ -6,9 +6,10 @@
       Mi Ubicación
     </ion-button> -->
     <ion-title slot="start" >Google Map</ion-title>
-    <ion-button (click)="vaciarCampos()" routerLink="/historial" shape="round" color="dark">
-      <ion-icon slot="end" name="timer-outline"></ion-icon>
-      Historial
+    <ion-button (click)="vaciarCampos()" routerLink="/chat" shape="round" color="dark">
+      
+      <ion-icon slot="start" name="arrow-back-outline"></ion-icon>
+      Chat
     </ion-button>
   </ion-toolbar>
 
@@ -69,7 +70,7 @@
       <ion-img src="/assets/images/Fondo.png" ></ion-img>
       <ion-button shape="round" expand="full" (click)="loadMap(); guardarUbicacion()" shape="round" color="dark">
         <ion-icon slot="start" name="locate"></ion-icon>
-        Mi Ubicación
+        Compartir ubicacion
       </ion-button>
     </ion-col>
   </ion-row>

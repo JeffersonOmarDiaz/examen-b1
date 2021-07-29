@@ -3,7 +3,9 @@ import { Component, ViewChild, ElementRef, Input } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { NativeGeocoder, NativeGeocoderResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder/ngx';
 import { Ubicacion } from '../modelBD';
+import { ChatService } from '../services/chat.service';
 import { FirestoreService } from '../services/firestore.service';
+import { IonContent } from '@ionic/angular';
 
 declare var google;
 
@@ -30,10 +32,13 @@ export class HomePage {
     direccion: '',
     fecha: new Date()
 }
+@ViewChild(IonContent) content: IonContent;
+newMsg = '';
   constructor(
     private geolocation: Geolocation,
     private nativeGeocoder: NativeGeocoder,
-    public firestoreService:FirestoreService) {
+    public firestoreService:FirestoreService,
+    private chatService: ChatService,) {
   }
 
 
@@ -54,9 +59,20 @@ export class HomePage {
     console.log('guardarUbicacion() => ', this.ubicacion);
     this.firestoreService.createDoc(this.ubicacion, path, id).then(res => {
       console.log('guardarUbicacion()  ==> ', res);
+      let msgInterno = String.prototype.concat("Latitud: ",this.ubicacion.latitud, " Longitud: ", this.ubicacion.longitud);
+      this.newMsg = msgInterno;
+      this.sendMessage();
     }).catch(error => {
       console.log('No se pudo Actulizar un error ->', error);
       
+    });
+
+  }
+
+  sendMessage() {
+    this.chatService.addChatMessage(this.newMsg).then(() => {
+      this.newMsg = '';
+      this.content.scrollToBottom();
     });
   }
   loadMap() {
